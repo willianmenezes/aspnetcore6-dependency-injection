@@ -6,41 +6,23 @@ namespace InjecaoDeDependencia.Controllers
     [Route("[controller]")]
     public class TesteController : ControllerBase
     {
-        private readonly IOperacaoScopped _scopped;
-        private readonly IOperacaoSingleton _singleton;
-        private readonly IOperacaoTransient _transient;
+        private readonly IOperacao _operacao;
+        private readonly IEnumerable<IOperacao> _operacoes;
 
-        public TesteController(
-            IOperacaoScopped scopped,
-            IOperacaoSingleton singleton,
-            IOperacaoTransient transient)
+        public TesteController(IOperacao operacao, IEnumerable<IOperacao> operacoes)
         {
-            _scopped = scopped;
-            _singleton = singleton;
-            _transient = transient;
+            _operacao = operacao;
+            _operacoes = operacoes;
         }
 
         [HttpGet("FromConstructor")]
-        public IActionResult GetFromConstructor(
-            [FromServices] IOperacaoTransient t,
-            [FromServices] IOperacaoSingleton sin,
-            [FromServices] IOperacaoScopped s
-            )
+        public IActionResult GetFromConstructor()
         {
             return Ok(new
             {
-                Request01 = new
-                {
-                    Transient = _transient.Id,
-                    Scopped = _scopped.Id,
-                    Singleton = _singleton.Id
-                },
-                Request02 = new
-                {
-                    Transient = t.Id,
-                    Scopped = s.Id,
-                    Singleton = sin.Id
-                }
+                Transient = _operacoes.Where(x => x is PrimeiraOperacao).First().Id,
+                Scopped = _operacoes.Where(x => x is SegundaOperacao).First().Id,
+                Singleton = _operacoes.Where(x => x is TerceiraOperacao).First().Id
             });
         }
     }

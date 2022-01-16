@@ -11,9 +11,9 @@ builder.Services.AddSwaggerGen();
 
 
 // adicionando servicoes no container
-builder.Services.AddTransient<IOperacaoTransient, Operacao>();
-builder.Services.AddScoped<IOperacaoScopped, Operacao>();
-builder.Services.AddSingleton<IOperacaoSingleton, Operacao>();
+builder.Services.AddTransient<IOperacao, PrimeiraOperacao>();
+builder.Services.AddScoped<IOperacao, SegundaOperacao>();
+builder.Services.AddSingleton<IOperacao, TerceiraOperacao>();
 
 var app = builder.Build();
 
