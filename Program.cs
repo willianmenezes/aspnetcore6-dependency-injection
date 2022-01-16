@@ -11,9 +11,23 @@ builder.Services.AddSwaggerGen();
 
 
 // adicionando servicoes no container
-builder.Services.AddTransient<IOperacao, PrimeiraOperacao>();
-builder.Services.AddScoped<IOperacao, SegundaOperacao>();
-builder.Services.AddSingleton<IOperacao, TerceiraOperacao>();
+
+//// Descarte - Sim | Varias implementacoes - Sim | Passar argumentos - Nao
+//builder.Services.AddScoped<IOperacao, Operacao>();
+
+//// Descarte - Sim | Varias implementacoes - Sim | Passar argumentos - Sim
+//builder.Services.AddScoped<IOperacao>(x => new Operacao());
+
+////Descarte - Sim | Varias implementacoes - Nao | Passar argumentos - Nao
+//builder.Services.AddSingleton<Operacao>();
+
+//// Descarte - Nao | Varias implementacoes - Sim | Passar argumentos - Sim
+//builder.Services.AddSingleton<IOperacao>(new Operacao());
+
+//// Descarte - Nao | Varias implementacoes - Nao | Passar argumentos - Sim
+//builder.Services.AddSingleton(new Operacao());
+
+builder.Services.Add(ServiceDescriptor.Describe(typeof(IOperacao), typeof(Operacao), ServiceLifetime.Scoped));
 
 var app = builder.Build();
 

@@ -7,12 +7,10 @@ namespace InjecaoDeDependencia.Controllers
     public class TesteController : ControllerBase
     {
         private readonly IOperacao _operacao;
-        private readonly IEnumerable<IOperacao> _operacoes;
 
-        public TesteController(IOperacao operacao, IEnumerable<IOperacao> operacoes)
+        public TesteController(IOperacao operacao)
         {
             _operacao = operacao;
-            _operacoes = operacoes;
         }
 
         [HttpGet("FromConstructor")]
@@ -20,9 +18,7 @@ namespace InjecaoDeDependencia.Controllers
         {
             return Ok(new
             {
-                Transient = _operacoes.Where(x => x is PrimeiraOperacao).First().Id,
-                Scopped = _operacoes.Where(x => x is SegundaOperacao).First().Id,
-                Singleton = _operacoes.Where(x => x is TerceiraOperacao).First().Id
+                ID = _operacao.Id
             });
         }
     }

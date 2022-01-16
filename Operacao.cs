@@ -1,32 +1,17 @@
 ﻿namespace InjecaoDeDependencia
 {
-    public class PrimeiraOperacao : IOperacao
+    public class Operacao : IOperacao
     {
         public Guid Id { get; set; }
 
-        public PrimeiraOperacao()
+        public Operacao()
         {
             Id = Guid.NewGuid();
         }
-    }
 
-    public class SegundaOperacao : IOperacao
-    {
-        public Guid Id { get; set; }
-
-        public SegundaOperacao()
+        public Operacao(Guid guid)
         {
-            Id = Guid.NewGuid();
-        }
-    }
-
-    public class TerceiraOperacao : IOperacao
-    {
-        public Guid Id { get; set; }
-
-        public TerceiraOperacao()
-        {
-            Id = Guid.NewGuid();
+            Id = guid;
         }
     }
 }
