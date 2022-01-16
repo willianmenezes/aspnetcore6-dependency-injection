@@ -12,6 +12,7 @@ builder.Services.AddSwaggerGen();
 
 // adicionando servicoes no container
 builder.Services.AddScoped<IOperacao, Operacao>();
+builder.Services.AddScoped<FooService>();
 
 var app = builder.Build();
 
