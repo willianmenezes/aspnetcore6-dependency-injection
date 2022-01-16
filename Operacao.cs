@@ -1,20 +1,12 @@
 ﻿namespace InjecaoDeDependencia
 {
-    public class Operacao : IOperacao
+    public class Operacao : IOperacaoSingleton, IOperacaoScopped, IOperacaoTransient
     {
         public Guid Id { get; set; }
 
-        public Operacao(ILogger<Operacao> logger)
-        {
-            Id = Guid.NewGuid();
-        }
-
-        public Operacao(FooService fooService, BarService barService)
+        public Operacao()
         {
             Id = Guid.NewGuid();
         }
     }
-
-    public class FooService { }
-    public class BarService { }
 }
